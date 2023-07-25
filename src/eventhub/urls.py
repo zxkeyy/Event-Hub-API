@@ -1,5 +1,5 @@
 """
-URL configuration for eventfinder project.
+URL configuration for eventhub project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('api/', include('events.urls')),
     path('admin/', admin.site.urls),
-
     path("__debug__/", include("debug_toolbar.urls")),
 ]
