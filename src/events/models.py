@@ -3,12 +3,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 
 # Create your models here.
-class User(models.Model): # place holder
-    username = models.CharField(max_length=32)
-
-    def __str__(self) -> str:
-        return self.username
-
 class Category(models.Model):
     name = models.CharField(max_length=32)
 

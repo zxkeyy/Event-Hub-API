@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Category, Club, Event, University
@@ -12,14 +11,17 @@ class EventViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class ClubViewSet(ModelViewSet):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
 
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class universityViewSet(ModelViewSet):
     queryset = University.objects.all()
