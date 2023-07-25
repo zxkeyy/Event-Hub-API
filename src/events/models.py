@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
 
 # Create your models here.
 class User(models.Model): # place holder
@@ -25,8 +26,8 @@ class Club(models.Model):
     description = models.CharField(max_length=255)
     body = models.TextField()
     
-    university = models.ForeignKey(University, on_delete=models.SET_NULL, null=True)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT)
+    universities = models.ManyToManyField(University, related_name='clubs', blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.name
@@ -41,12 +42,12 @@ class Event(models.Model):
     event_start_date = models.DateTimeField()
     body = models.TextField(null=True, blank=True)
 
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    clubs = models.ManyToManyField(Club, related_name="events", blank=True)
-    university = models.ManyToManyField(University, related_name="universities", blank=True)
+    category = models.ForeignKey(Category,related_name = 'events', on_delete=models.SET_NULL, null=True, blank=True)
+    clubs = models.ManyToManyField(Club, related_name = 'events', blank=True)
+    universities = models.ManyToManyField(University, related_name = 'events', blank=True)
 
     slug = models.SlugField()
-    owner = models.ForeignKey(User, on_delete=models.PROTECT) #change to cascade for deployment
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #change to cascade for deployment
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

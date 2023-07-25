@@ -6,7 +6,7 @@ from django.db.models import Count
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner', 'is_verified']
-    autocomplete_fields = ['category', 'clubs', 'university', 'owner']
+    autocomplete_fields = ['category', 'clubs', 'universities', 'owner']
     prepopulated_fields = {
         'slug' : ['name']
     }
@@ -16,7 +16,7 @@ class EventAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner']
 
-    autocomplete_fields = ['university', 'owner']
+    autocomplete_fields = ['universities', 'owner']
     search_fields = ['name']
 
 @admin.register(models.University)
