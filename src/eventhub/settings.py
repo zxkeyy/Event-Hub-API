@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
 
 # Application definition
 
@@ -40,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'djoser',
+    'rest_framework.authtoken',
+    #'djoser',
     'debug_toolbar',
     'events',
 ]
@@ -108,16 +115,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
     ),
-
+    'DEFAULT_PERMISSION_CLASSES': [     
+        'rest_framework.permissions.IsAuthenticated', 
+    ], 
 }
 
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-   'ACCESS_TOKEN_LIFETIME': timedelta(days = 1),
-   'REFRESH_TOKEN_LIFETIME': timedelta(days = 30),
-}
+# SIMPLE_JWT = {
+#    'AUTH_HEADER_TYPES': ('JWT',),
+#    'ACCESS_TOKEN_LIFETIME': timedelta(days = 1),
+#    'REFRESH_TOKEN_LIFETIME': timedelta(days = 30),
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

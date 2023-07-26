@@ -18,7 +18,7 @@ class University(models.Model):
 class Club(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=255)
-    body = models.TextField()
+    body = models.TextField(blank=True, null=True)
     
     universities = models.ManyToManyField(University, related_name='clubs', blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
