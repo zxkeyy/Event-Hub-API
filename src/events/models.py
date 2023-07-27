@@ -38,6 +38,7 @@ class Event(models.Model):
     number_attendants = models.PositiveIntegerField(null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True)
     event_start_date = models.DateTimeField()
+    duration = models.TimeField(null=True, blank=True)
     image = models.ImageField(upload_to='images/events/', null=True, blank=True, validators=[validate_file_size])
     body = models.TextField(null=True, blank=True)
 

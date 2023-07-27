@@ -4,7 +4,7 @@ from .models import Category, Club, Event, University
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'name', 'wilaya', 'number_attendants', 'description', 'image', 'event_start_date', 'body', 'category', 'clubs', 'universities', 'is_verified']
+        fields = ['id', 'name', 'wilaya', 'number_attendants', 'description', 'image', 'event_start_date', 'duration', 'body', 'category', 'clubs', 'universities', 'is_verified']
 
 class ClubSerializer(serializers.ModelSerializer):
     class Meta:
