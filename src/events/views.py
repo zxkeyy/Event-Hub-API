@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from .models import Category, Club, Event, University
 from .serializers import CategorySerializer, ClubSerializer, EventSerializer, UniversitySerializer
 from .permissions import IsOwnerOrReadOnly
+from .filters import EventFilter, ClubFilter
 
 # Create your views here.
 class EventViewSet(ModelViewSet):
@@ -11,6 +14,11 @@ class EventViewSet(ModelViewSet):
     serializer_class = EventSerializer
 
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    filter_backends =[DjangoFilterBackend, SearchFilter]
+    filterset_class = EventFilter
+    search_fields = ['name', 'description', 'clubs__name', 'universities__name']
+    
 
     def get_permissions(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
@@ -26,6 +34,10 @@ class ClubViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    filter_backends =[DjangoFilterBackend, SearchFilter]
+    filterset_class = ClubFilter
+    search_fields = ['name', 'description', 'universities__name', 'events__name']
+
     def get_permissions(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
             self.permission_classes = [IsOwnerOrReadOnly]
@@ -40,6 +52,9 @@ class universityViewSet(ModelViewSet):
 
     permission_classes = [IsAdminUser]
     
+    filter_backends = [SearchFilter]
+    search_fields = ['name']
+    
     def get_permissions(self):
         if self.request.method in ['GET']:
             self.permission_classes = []
@@ -50,6 +65,9 @@ class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
 
     permission_classes = [IsAdminUser]
+
+    filter_backends = [SearchFilter]
+    search_fields = ['name']
 
     # Allow anon to view
     def get_permissions(self):
