@@ -8,13 +8,15 @@ class Category(models.Model):
     name = models.CharField(max_length=32)
     image = models.ImageField(upload_to='images/categories/', null=True, blank=True)
 
+
     def __str__(self) -> str:
         return self.name
 
 class University(models.Model):
     name = models.CharField(max_length=64)
     image = models.ImageField(upload_to='images/universities/', null=True, blank=True, validators=[validate_file_size])
-
+    body = models.TextField(blank=True, null=True)
+    
     def __str__(self) -> str:
         return self.name
 
