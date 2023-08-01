@@ -17,7 +17,7 @@ class EventViewSet(ModelViewSet):
     filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = EventFilter
     search_fields = ['name', 'description', 'clubs__name', 'universities__name']
-    ordering_fields = ['name', 'start_date', 'end_date', 'created_at', 'updated_at']
+    ordering_fields = ['name', 'start_date', 'end_date', 'created_at', 'updated_at', 'priority']
     
 
     def get_permissions(self):
@@ -37,7 +37,7 @@ class ClubViewSet(ModelViewSet):
     filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ClubFilter
     search_fields = ['name', 'description', 'universities__name', 'events__name']
-    ordering_fields = ['name']
+    ordering_fields = ['name', 'priority']
 
     def get_permissions(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:

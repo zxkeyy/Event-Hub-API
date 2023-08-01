@@ -28,6 +28,8 @@ class Club(models.Model):
     
     universities = models.ManyToManyField(University, related_name='clubs', blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    priority = models.IntegerField(default=1)
+
 
     def __str__(self) -> str:
         return self.name
@@ -53,6 +55,7 @@ class Event(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #change to cascade for deployment
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    priority = models.IntegerField(default=1)
 
     is_verified = models.BooleanField(default=False)
 
