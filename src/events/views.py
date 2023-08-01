@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from .models import Category, Club, Event, University
@@ -14,9 +14,10 @@ class EventViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
     
-    filter_backends =[DjangoFilterBackend, SearchFilter]
+    filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = EventFilter
     search_fields = ['name', 'description', 'clubs__name', 'universities__name']
+    ordering_fields = ['name', 'start_date', 'end_date', 'created_at', 'updated_at']
     
 
     def get_permissions(self):
@@ -33,9 +34,10 @@ class ClubViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    filter_backends =[DjangoFilterBackend, SearchFilter]
+    filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ClubFilter
     search_fields = ['name', 'description', 'universities__name', 'events__name']
+    ordering_fields = ['name']
 
     def get_permissions(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
@@ -51,8 +53,9 @@ class universityViewSet(ModelViewSet):
 
     permission_classes = [IsAdminUser]
     
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['name']
+    ordering_fields = ['name']
     
     def get_permissions(self):
         if self.request.method in ['GET']:
@@ -65,8 +68,9 @@ class CategoryViewSet(ModelViewSet):
 
     permission_classes = [IsAdminUser]
 
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['name']
+    ordering_fields = ['name']
 
     # Allow anon to view
     def get_permissions(self):

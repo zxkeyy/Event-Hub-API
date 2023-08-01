@@ -35,12 +35,13 @@ class Club(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=64)
-    location = models.CharField(max_length=255)
+    location_name = models.CharField(max_length=255)
+    location_id = models.PositiveIntegerField(null=True, blank=True)
     wilaya = models.PositiveIntegerField(null=True, blank=True, validators=[MaxValueValidator(58), MinValueValidator(1)])
     number_attendants = models.PositiveIntegerField(null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True)
-    event_start_date = models.DateTimeField()
-    duration = models.TimeField(null=True, blank=True)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True, blank=True)
     image = models.ImageField(upload_to='images/events/', null=True, blank=True, validators=[validate_file_size])
     body = models.TextField(null=True, blank=True)
 
