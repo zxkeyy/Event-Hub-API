@@ -5,7 +5,7 @@ from . import models
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner', 'is_verified']
-    autocomplete_fields = ['category', 'clubs', 'universities', 'owner']
+    autocomplete_fields = ['category', 'clubs', 'universities', 'tags', 'owner']
     prepopulated_fields = {
         'slug' : ['name']
     }
@@ -25,6 +25,12 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 @admin.register(models.Category)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+    search_fields = ['name']
+
+@admin.register(models.Tag)
 class EventAdmin(admin.ModelAdmin):
     list_display = ['name']
 

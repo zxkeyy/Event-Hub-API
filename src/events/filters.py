@@ -9,6 +9,7 @@ class EventFilter(FilterSet):
             'clubs': ['exact'],
             'universities': ['exact'],
             'category': ['exact'],
+            'tags': ['exact'],
         }
 
 class ClubFilter(FilterSet):

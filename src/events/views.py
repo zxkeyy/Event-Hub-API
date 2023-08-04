@@ -2,8 +2,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
-from .models import Category, Club, Event, University
-from .serializers import CategorySerializer, ClubSerializer, EventSerializer, UniversitySerializer
+from .models import Category, Club, Event, University, Tag
+from .serializers import CategorySerializer, ClubSerializer, EventSerializer, UniversitySerializer, TagSerializer
 from .permissions import IsOwnerOrReadOnly
 from .filters import EventFilter, ClubFilter
 
@@ -16,7 +16,7 @@ class EventViewSet(ModelViewSet):
     
     filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = EventFilter
-    search_fields = ['name', 'description', 'clubs__name', 'universities__name']
+    search_fields = ['name', 'description', 'clubs__name', 'universities__name', 'tags__name']
     ordering_fields = ['name', 'start_date', 'end_date', 'created_at', 'updated_at', 'priority']
     
 
@@ -65,6 +65,22 @@ class universityViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+    permission_classes = [IsAdminUser]
+
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['name']
+    ordering_fields = ['name']
+
+    # Allow anon to view
+    def get_permissions(self):
+        if self.request.method in ['GET']:
+            self.permission_classes = []
+        return super().get_permissions()
+    
+class TagViewSet(ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
     permission_classes = [IsAdminUser]
 

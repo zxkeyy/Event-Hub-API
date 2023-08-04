@@ -4,6 +4,12 @@ from django.conf import settings
 from .validators import validate_file_size
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=32)
+
+    def __str__(self) -> str:
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=32)
     image = models.ImageField(upload_to='images/categories/', null=True, blank=True)
@@ -50,6 +56,7 @@ class Event(models.Model):
     category = models.ForeignKey(Category,related_name = 'events', on_delete=models.SET_NULL, null=True, blank=True)
     clubs = models.ManyToManyField(Club, related_name = 'events', blank=True)
     universities = models.ManyToManyField(University, related_name = 'events', blank=True)
+    tags = models.ManyToManyField(Tag, related_name='events', blank=True)
 
     slug = models.SlugField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #change to cascade for deployment

@@ -7,5 +7,6 @@ router.register('events', views.EventViewSet)
 router.register('clubs', views.ClubViewSet)
 router.register('universities', views.universityViewSet)
 router.register('categories', views.CategoryViewSet)
+router.register('tags', views.TagViewSet)
 
 urlpatterns = router.urls
