@@ -6,6 +6,7 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = ['id', 'name', 'location_name', 'location_id', 'wilaya', 'number_attendants', 'description', 'image', 'start_date', 'end_date', 'body', 'tags', 'category', 'clubs', 'universities', 'slug', 'is_verified']
 
+        lookup_field = 'slug'
         read_only_fields = ['is_verified']
 
 class ClubSerializer(serializers.ModelSerializer):

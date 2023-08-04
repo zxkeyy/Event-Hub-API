@@ -13,6 +13,8 @@ class EventViewSet(ModelViewSet):
     serializer_class = EventSerializer
 
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    lookup_field = 'slug'
     
     filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = EventFilter
