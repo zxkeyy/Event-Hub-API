@@ -44,7 +44,7 @@ class Club(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=64)
     location_name = models.CharField(max_length=255)
-    location_id = models.PositiveIntegerField(null=True, blank=True)
+    location_id = models.CharField(max_length=255)
     wilaya = models.PositiveIntegerField(null=True, blank=True, validators=[MaxValueValidator(58), MinValueValidator(1)])
     number_attendants = models.PositiveIntegerField(null=True, blank=True)
     description = models.CharField(max_length=255, null=True, blank=True)
