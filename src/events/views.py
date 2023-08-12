@@ -18,7 +18,7 @@ class EventViewSet(ModelViewSet):
     
     filter_backends =[DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = EventFilter
-    search_fields = ['name', 'description', 'clubs__name', 'universities__name', 'tags__name']
+    search_fields = ['name', 'description', 'location_name', 'clubs__name', 'universities__name', 'tags__name']
     ordering_fields = ['name', 'start_date', 'end_date', 'created_at', 'updated_at', 'priority']
     
 
