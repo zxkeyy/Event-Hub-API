@@ -9,7 +9,7 @@ from .filters import EventFilter, ClubFilter
 
 # Create your views here.
 class EventViewSet(ModelViewSet):
-    queryset = Event.objects.all()
+    queryset = Event.objects.prefetch_related('tags', 'universities', 'clubs').all()
     serializer_class = EventSerializer
 
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -31,7 +31,7 @@ class EventViewSet(ModelViewSet):
         serializer.save(owner=self.request.user)
 
 class ClubViewSet(ModelViewSet):
-    queryset = Club.objects.all()
+    queryset = Club.objects.prefetch_related('events', 'universities').all()
     serializer_class = ClubSerializer
 
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -50,7 +50,7 @@ class ClubViewSet(ModelViewSet):
         serializer.save(owner=self.request.user)
 
 class universityViewSet(ModelViewSet):
-    queryset = University.objects.all()
+    queryset = University.objects.prefetch_related('clubs', 'events').all()
     serializer_class = UniversitySerializer
 
     permission_classes = [IsAdminUser]
@@ -65,7 +65,7 @@ class universityViewSet(ModelViewSet):
         return super().get_permissions()
 
 class CategoryViewSet(ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.prefetch_related('events').all()
     serializer_class = CategorySerializer
 
     permission_classes = [IsAdminUser]
@@ -81,7 +81,7 @@ class CategoryViewSet(ModelViewSet):
         return super().get_permissions()
     
 class TagViewSet(ModelViewSet):
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.prefetch_related('events').all()
     serializer_class = TagSerializer
 
     permission_classes = [IsAdminUser]
