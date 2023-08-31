@@ -15,6 +15,7 @@ class EventFilter(FilterSet):
             'tags': ['exact'],
             'start_date': ['lt', 'gt'],
             'end_date': ['lt', 'gt'],
+            'owner': ['exact']
         }
 
 class ClubFilter(FilterSet):
@@ -22,4 +23,5 @@ class ClubFilter(FilterSet):
         model = Club
         fields = {
             'universities',
+            'owner'
         }
