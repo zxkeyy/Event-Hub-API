@@ -7,14 +7,14 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'location_name', 'location_id', 'wilaya', 'number_attendants', 'description', 'image', 'start_date', 'end_date', 'body', 'tags', 'category', 'clubs', 'universities', 'slug', 'owner', 'is_verified']
 
         lookup_field = 'slug'
-        read_only_fields = ['is_verified']
+        read_only_fields = ['owner','is_verified']
 
 class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
         fields = ['id', 'name', 'description', 'image', 'body', 'universities', 'owner', 'events']
 
-        read_only_fields = ['events']
+        read_only_fields = ['owner','events']
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:

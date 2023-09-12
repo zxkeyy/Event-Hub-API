@@ -28,7 +28,7 @@ class University(models.Model):
 
 class Club(models.Model):
     name = models.CharField(max_length=64)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='images/clubs/', null=True, blank=True, validators=[validate_file_size])
     body = models.TextField(blank=True, null=True)
     
