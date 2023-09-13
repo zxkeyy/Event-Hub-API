@@ -94,4 +94,6 @@ class TagViewSet(ModelViewSet):
     def get_permissions(self):
         if self.request.method in ['GET']:
             self.permission_classes = []
+        if self.request.method in ['POST']:
+            self.permission_classes = [IsAuthenticatedOrReadOnly]
         return super().get_permissions()
