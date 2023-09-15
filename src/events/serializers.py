@@ -9,7 +9,15 @@ class EventSerializer(serializers.ModelSerializer):
         lookup_field = 'slug'
         read_only_fields = ['owner','is_verified']
 
+class EventSlugSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id', 'slug']
+
+        lookup_field = 'slug'
+
 class ClubSerializer(serializers.ModelSerializer):
+    events = EventSlugSerializer(many=True)
     class Meta:
         model = Club
         fields = ['id', 'name', 'description', 'image', 'body', 'universities', 'owner', 'events']
